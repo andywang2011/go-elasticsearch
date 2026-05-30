@@ -1,0 +1,5 @@
+coverage.out
+cover.out
+*.test
+.idea/
+.DS_Store
