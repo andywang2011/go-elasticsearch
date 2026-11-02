@@ -1,6 +1,6 @@
 module github.com/andywang2011/go-elasticsearch
 
-go 1.25.0
+go 1.27.3
 
 require github.com/elastic/go-elasticsearch/v8 v8.19.0
 
