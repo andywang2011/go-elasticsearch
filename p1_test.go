@@ -110,10 +110,12 @@ func TestNewClient_ctxAndValidation(t *testing.T) {
 	if _, err := NewClientWithTransport(ctx, Config{Addresses: []string{"http://x"}}, nil); !errors.Is(err, context.Canceled) {
 		t.Fatal(err)
 	}
-	if _, err := NewClient(nil, Config{}); err == nil { //nolint:staticcheck
+	//lint:ignore SA1012 intentional nil context in test
+	if _, err := NewClient(nil, Config{}); err == nil {
 		t.Fatal("expected validation error")
 	}
-	if _, err := NewClientWithTransport(nil, Config{}, nil); err == nil { //nolint:staticcheck
+	//lint:ignore SA1012 intentional nil context in test
+	if _, err := NewClientWithTransport(nil, Config{}, nil); err == nil {
 		t.Fatal("expected validation error")
 	}
 	if c, err := NewClientWithTransport(context.Background(), Config{Addresses: []string{"http://x"}}, nil); err != nil || c == nil {
@@ -343,7 +345,8 @@ func TestRetryManager_ctxCancelDuringBackoffAndOp(t *testing.T) {
 	if !errors.Is(err, context.Canceled) {
 		t.Fatal(err)
 	}
-	if err := rm.execute(nil, func(context.Context) error { return nil }); err != nil { //nolint:staticcheck
+	//lint:ignore SA1012 intentional nil context in test
+	if err := rm.execute(nil, func(context.Context) error { return nil }); err != nil {
 		t.Fatal(err)
 	}
 	if err := rm.sleep(context.Background(), 0); err != nil {
