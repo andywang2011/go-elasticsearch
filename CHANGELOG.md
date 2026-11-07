@@ -1,5 +1,10 @@
 # Changelog
 
-## Unreleased
+## [0.1.0] - 2026-11-07
 
-- Initial client extracted from demo-api/pkg/search with hybrid kNN + RRF support.
+### Added
+
+- `NewClient` and `NewClientWithTransport` with HTTP retry
+- Generic `Index[T]` for index, delete, keyword search, and hybrid search (bool + kNN + RRF)
+- Query helpers (`BoolQuery`, `MultiMatch`, `Term`, `DefaultRRF`)
+- English README, examples, and package documentation

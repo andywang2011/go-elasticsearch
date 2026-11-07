@@ -8,19 +8,15 @@ import (
 	es "github.com/elastic/go-elasticsearch/v8"
 )
 
-// API is the Elasticsearch client surface.
-type API interface {
-	Ping(ctx context.Context) error
-}
-
-// Client implements API and backs generic Index operations.
-type Client struct {
+type conn struct {
 	cfg    Config
 	client *es.Client
 }
 
+var _ Client = (*conn)(nil)
+
 // NewClient creates an Elasticsearch client from Config.
-func NewClient(cfg Config) (*Client, error) {
+func NewClient(cfg Config) (Client, error) {
 	if err := cfg.Validate(); err != nil {
 		return nil, err
 	}
@@ -33,7 +29,7 @@ func NewClient(cfg Config) (*Client, error) {
 }
 
 // NewClientWithTransport injects an HTTP RoundTripper for tests.
-func NewClientWithTransport(cfg Config, rt http.RoundTripper) (*Client, error) {
+func NewClientWithTransport(cfg Config, rt http.RoundTripper) (Client, error) {
 	if err := cfg.Validate(); err != nil {
 		return nil, err
 	}
@@ -43,7 +39,7 @@ func NewClientWithTransport(cfg Config, rt http.RoundTripper) (*Client, error) {
 	return newClientWithRoundTripper(cfg, &retryTransport{base: rt, retry: newRetryManager(cfg.Retry)})
 }
 
-func newClientWithRoundTripper(cfg Config, rt http.RoundTripper) (*Client, error) {
+func newClientWithRoundTripper(cfg Config, rt http.RoundTripper) (*conn, error) {
 	esCfg := es.Config{
 		Addresses: cfg.Addresses,
 		Username:  cfg.Username,
@@ -54,11 +50,11 @@ func newClientWithRoundTripper(cfg Config, rt http.RoundTripper) (*Client, error
 	if err != nil {
 		return nil, fmt.Errorf("elasticsearch: connect: %w", err)
 	}
-	return &Client{cfg: cfg, client: esClient}, nil
+	return &conn{cfg: cfg, client: esClient}, nil
 }
 
 // Ping checks cluster availability.
-func (c *Client) Ping(ctx context.Context) error {
+func (c *conn) Ping(ctx context.Context) error {
 	if c == nil || c.client == nil {
 		return fmt.Errorf("elasticsearch: client is not initialized")
 	}
@@ -73,6 +69,6 @@ func (c *Client) Ping(ctx context.Context) error {
 	return nil
 }
 
-func (c *Client) refresh() string {
+func (c *conn) refresh() string {
 	return string(c.cfg.RefreshPolicy)
 }

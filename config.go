@@ -45,6 +45,9 @@ func DefaultConfig() Config {
 	}
 }
 
+// ConfigDefault is an alias for DefaultConfig (naming consistency across go-* libs).
+func ConfigDefault() Config { return DefaultConfig() }
+
 // Validate checks required fields and applies defaults.
 func (c *Config) Validate() error {
 	if len(c.Addresses) == 0 {

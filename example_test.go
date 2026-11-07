@@ -2,8 +2,6 @@ package elasticsearch_test
 
 import (
 	"context"
-	"fmt"
-	"log"
 
 	libes "github.com/andywang2011/go-elasticsearch"
 )
@@ -15,7 +13,7 @@ func ExampleNewIndex_search() {
 		Password:  "secret",
 	})
 	if err != nil {
-		log.Fatal(err)
+		return
 	}
 
 	type Article struct {
@@ -33,7 +31,7 @@ func ExampleNewIndex_search() {
 		),
 	})
 	if err != nil {
-		log.Fatal(err)
+		return
 	}
-	fmt.Println(result.Total)
+	_ = result
 }

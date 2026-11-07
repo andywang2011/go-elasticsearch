@@ -22,12 +22,13 @@ type IndexAPI[T any] interface {
 // Index is a generic typed index handle.
 type Index[T any] struct {
 	name   string
-	client *Client
+	client *conn
 }
 
 // NewIndex creates a typed index handle for the given client and index name.
-func NewIndex[T any](client *Client, indexName string) IndexAPI[T] {
-	return &Index[T]{name: indexName, client: client}
+func NewIndex[T any](client Client, indexName string) IndexAPI[T] {
+	c, _ := client.(*conn)
+	return &Index[T]{name: indexName, client: c}
 }
 
 // IndexDoc indexes or updates a document by ID.
