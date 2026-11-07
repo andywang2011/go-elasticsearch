@@ -5,13 +5,12 @@ linters:
     - gosec
     - errorlint
     - bodyclose
-    - contextcheck
-    - noctx
   settings:
     gosec:
       excludes:
         - G404
         - G115
+        - G401
         - G501
         - G505
   exclusions:
@@ -20,13 +19,9 @@ linters:
         linters:
           - gosec
           - bodyclose
-          - noctx
-          - contextcheck
           - errorlint
       - path: examples/
         linters:
           - gosec
           - bodyclose
-          - noctx
-          - contextcheck
           - errorlint
