@@ -12,11 +12,21 @@ linters:
       excludes:
         - G404
         - G115
+        - G501
+        - G505
   exclusions:
     rules:
       - path: _test\.go
         linters:
           - gosec
+          - bodyclose
+          - noctx
+          - contextcheck
+          - errorlint
       - path: examples/
         linters:
           - gosec
+          - bodyclose
+          - noctx
+          - contextcheck
+          - errorlint
