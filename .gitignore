@@ -1,0 +1,15 @@
+coverage.out
+cover.out
+*.test
+.idea/
+.DS_Store
+.env
+
+# example binaries
+examples/**/search
+examples/**/main
+*.exe
+vendor/
+examples/**/context
+examples/**/watch
+examples/**/basic
