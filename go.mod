@@ -1,6 +1,6 @@
 module github.com/andywang2011/go-elasticsearch
 
-go 1.27.3
+go 1.27.4
 
 require github.com/elastic/go-elasticsearch/v8 v8.19.7
 
@@ -13,5 +13,8 @@ require (
 	go.opentelemetry.io/otel v1.47.0 // indirect
 	go.opentelemetry.io/otel/log v1.47.0 // indirect
 	go.opentelemetry.io/otel/metric v1.47.0 // indirect
+	go.opentelemetry.io/otel/sdk v1.47.0 // indirect
 	go.opentelemetry.io/otel/trace v1.47.0 // indirect
+	go.yaml.in/yaml/v3 v3.0.6 // indirect
+	golang.org/x/sys v0.49.0 // indirect
 )
